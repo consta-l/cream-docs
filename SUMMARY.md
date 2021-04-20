@@ -4,7 +4,6 @@
 * [Contract Address](smart-contract-address.md)
 * [Audit Report](audit-report.md)
 * [Flash Loans](flash-loans.md)
-* [About](about.md)
 * [Press Kit](press-kit.md)
 
 ## Lending
