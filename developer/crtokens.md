@@ -2,21 +2,21 @@
 description: Shout out to our community member Ivan for the hard work and contribution
 ---
 
-# crTokens
+# eRSDL
 
 ## Introduction
 
-Each asset supported by the C.R.E.A.M. Protocol is integrated through a crToken contract, which is an [EIP-20](https://eips.ethereum.org/EIPS/eip-20) compliant representation of balances supplied to the protocol. By minting crTokens, users \(1\) earn interest through the crToken's exchange rate, which increases in value relative to the underlying asset, and \(2\) gain the ability to use crTokens as collateral.
+Each asset supported by the unFederalReserve Protocol is integrated through a eRSDL contract, which is an [EIP-20](https://eips.ethereum.org/EIPS/eip-20) compliant representation of balances supplied to the protocol. By minting eRSDL, users \(1\) earn interest through the eRSDL's exchange rate, which increases in value relative to the underlying asset, and \(2\) gain the ability to use eRSDL as collateral.
 
-crTokens are the primary means of interacting with the C.R.E.A.M. Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers crTokens, she will do so using the crToken contract.
+eRSDL are the primary means of interacting with the unFederealReserve Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers eRSDL, she will do so using the crToken contract.
 
-There are currently two types of crTokens: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
+?*? There are currently two types of crTokens: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
 
 ## Mint
 
 The mint function transfers an asset into the protocol, which begins accumulating interest based on the current Supply Rate for the asset. The user receives a quantity of crTokens equal to the underlying tokens supplied, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate).
 
-### CErc20
+### *?* CErc20
 
 ```jsx
 function mint(uint mintAmount) returns (uint)
@@ -30,7 +30,7 @@ function mint(uint mintAmount) returns (uint)
 
 Before supplying an asset, users must first approve the crToken to access their token balance.
 
-### CEther
+### *?* CEther
 
 ```jsx
 function mint() payable
@@ -51,7 +51,7 @@ underlying.approve(address(cToken), 100); // approve the transfer
 assert(crToken.mint(100) == 0);            // mint the cTokens and assert there is no error
 ```
 
-### Web3 1.0
+### *?* Web3 1.0
 
 ```jsx
 const crToken = CEther.at(0x3FDB...);
@@ -60,9 +60,9 @@ await crToken.methods.mint().send({from: myAccount, value: 50});
 
 ## **Redeem**
 
-The redeem function converts a specified quantity of crTokens into the underlying asset, and returns them to the user. The amount of underlying tokens received is equal to the quantity of crTokens redeemed, multiplied by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
+The redeem function converts a specified quantity of eRSDL into the underlying asset, and returns them to the user. The amount of underlying tokens received is equal to the quantity of eRSDL redeemed, multiplied by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
 
-### CErc20 / CEther
+### *?* CErc20 / CEther
 
 ```jsx
 function redeem(uint redeemTokens) returns (uint)
@@ -90,9 +90,9 @@ crToken.methods.redeem(1).send({from: ...});
 
 ## **Redeem Underlying**
 
-The redeem underlying function converts crTokens into a specified quantity of the underlying asset, and returns them to the user. The amount of crTokens redeemed is equal to the quantity of underlying tokens received, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
+The redeem underlying function converts eRSDL into a specified quantity of the underlying asset, and returns them to the user. The amount of crTokens redeemed is equal to the quantity of underlying tokens received, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
 
-### CErc20 / CEther
+### *?* CErc20 / CEther
 
 ```jsx
 function redeemUnderlying(uint redeemAmount) returns (uint)
@@ -241,7 +241,7 @@ await crToken.methods.repayBorrowBehalf(0xBorrower, 10000).send({from: 0xPayer})
 
 A user who has negative account liquidity is subject to liquidation by other users of the protocol to return his/her account liquidity back to positive \(i.e. above the collateral requirement\). When a liquidation occurs, a liquidator may repay some or all of an outstanding borrow on behalf of a borrower and in return receive a discounted amount of collateral held by the borrower; this discount is defined as the liquidation incentive.
 
-A liquidator may close up to a certain fixed percentage \(i.e. close factor\) of any individual outstanding borrow of the underwater account. When collateral is seized, the liquidator is transferred crTokens which they may redeem the same as if they had supplied the asset themselves. Users must approve each crToken contract before calling liquidate \(i.e. on the borrowed asset which they are repaying\), as they are transferring funds into the contract.
+A liquidator may close up to a ?*? certain fixed percentage \(i.e. close factor\) of any individual outstanding borrow of the underwater account. When collateral is seized, the liquidator is transferred eRSDL which they may redeem the same as if they had supplied the asset themselves. Users must approve each eRSDL contract before calling liquidate \(i.e. on the borrowed asset which they are repaying\), as they are transferring funds into the contract.
 
 ### **CErc20**
 
@@ -295,7 +295,7 @@ await crToken.methods.liquidateBorrow(0xBorrower, 33, crTokenCollateral).send({f
 
 ## **Exchange Rate**
 
-Each crToken is convertible into an ever increasing quantity of the underlying asset, as interest accrues in the market. The exchange rate between a crToken and the underlying asset is equal to:
+Each eRSDL is convertible into an ever increasing quantity of the underlying asset, as interest accrues in the market. The exchange rate between a crToken and the underlying asset is equal to:
 
 ```jsx
 exchangeRate = (getCash() + totalBorrows() - totalReserves()) / totalSupply()
@@ -325,7 +325,7 @@ Tip: note the use of call vs. send to invoke the function from off-chain without
 
 ## Get Cash
 
-Cash is the amount of underlying balance owned by this crToken contract. One may query the total amount of cash currently available to this market.
+Cash is the amount of underlying balance owned by this eRSDL contract. One may query the total amount of cash currently available to this market.
 
 ### CErc20/CEther
 
@@ -429,7 +429,7 @@ const borrowRate = (await crToken.methods.borrowRatePerBlock().call());
 
 ## Total Supply
 
-Total Supply is the number of tokens currently in circulation in this crToken market. It is part of the EIP-20 interface of the crToken contract.
+Total Supply is the number of tokens currently in circulation in this eRSDL market. It is part of the EIP-20 interface of the eRSDL contract.
 
 ### CErc20/CEther
 
@@ -491,7 +491,7 @@ At any point in time one may query the contract to get the current supply rate p
 function supplyRatePerBlock() returns (unit)
 ```
 
-`RETURN:` The current supply rate as an unsigned integer, scaled by 1e18.
+`RETURN:` The current supply rate as an unsigned integer, scaled by ?*? 1e18.
 
 ### Solidity
 
