@@ -1,26 +1,18 @@
 ---
-description: How C.R.E.A.M. Finance get token price
+description: How unFederalReserve get token price
 ---
 
 # Price Oracle
 
 {% hint style="info" %}
-Currently we have Chainlink, yVault and curve.fi as third-party price oracle
+Currently we have Chainlink as third-party price oracle
 {% endhint %}
 
 ### Chainlink
 
 ETH / LEND / LINK / COMP / YFI / BUSD / USDT / USDC
 
-### yVault
+### unFederalReserve
 
-yyCRV / yETH
-
-### Curve.fi
-
-yCRV
-
-### C.R.E.A.M. Finance
-
-The other tokens, including BSC supported token
+?*? The other tokens, including BSC supported token
 

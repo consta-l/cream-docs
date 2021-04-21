@@ -4,11 +4,11 @@
 
 C.R.E.A.M. is bringing Flash Loans to our money markets.
 
-Flash Loans allow developers access to undercollateralized loans, pending the borrowed amount \(and fee\) is returned within one transaction block.
+Flash Loans are the first uncollateralized loan option. Flash Loans enables developers to borrow instantly and easily, no collateral needed provided that the liquidity is returned to the pool within one transaction block.
 
 Flash Loans offer a wide range of use cases, including democratized liquidations, arbitrage, collateral swapping and interest rate swapping.
 
-Our Flash Loans feature is very similar to [AAVE Flash Loans V1](https://aave.com/flash-loans), except C.R.E.A.M. Flash Loans are implemented on crToken.
+Our Flash Loans feature is very similar to [AAVE Flash Loans V1](https://aave.com/flash-loans), except unFederalReserve Flash Loans are implemented on ?*?crToken.
 
 There are 3 major differences between C.R.E.A.M. Flash Loans and AAVE v1 Flash Loans:
 

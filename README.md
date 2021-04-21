@@ -14,7 +14,7 @@ You can switch between Ethereum Mainnet, ?*? Binance Smart Chain and Fantom Oper
 
 unFederalReserve is a decentralized lending protocol for individuals and protocols to access financial services. The protocol is permissionless, transparent, and non-custodial.
 
-Currently, unFederalReserve is live on Ethereum, ?*? Binance Smart Chain, and Fantom.
+Currently, unFederalReserve is live on Ethereum.
 
 unFederalReserve’s smart contract money markets are focused on longtail assets -- with the goal of increasing capital efficiency for all assets in crypto markets.
 
