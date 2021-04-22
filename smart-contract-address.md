@@ -1,10 +1,10 @@
 # Contract Address
 
-### Cream
+### eRSDL
 
 [0x2ba592F78dB6436527729929AAf6c908497cB200](https://etherscan.io/address/0x2ba592F78dB6436527729929AAf6c908497cB200)
 
-### Long-term CREAM Staking Address
+### Long-term eRSDL Staking Address
 
 | Duration | Address |
 | :--- | :--- |

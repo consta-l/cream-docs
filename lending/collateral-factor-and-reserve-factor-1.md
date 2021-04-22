@@ -1,6 +1,6 @@
 # Collateral Factor & Reserve Factor
 
-The reserve factor is the percentage of Fee paid to unFederalReserve protocol. If the reserve factor is 10, then that would imply that 10% of the interest paid on the asset is for unFederalReserve.
+The reserve factor is the percentage of Fee paid to unFederalReserve. If the reserve factor is 10, then that would imply that 10% of the interest paid on the asset is for unFederalReserve.
 
 In the other hand, the collateral factor is the maximum you can borrow on a particular asset.
 

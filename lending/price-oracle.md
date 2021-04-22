@@ -1,5 +1,5 @@
 ---
-description: How C.R.E.A.M. Finance get token price
+description: How unFederalReserve get token price
 ---
 
 # Price Oracle
@@ -36,7 +36,7 @@ For the following tokens, we fetch price from contracts directly:
 
 yUSD / yETH / yCRV / xSushi / bBadger / yveCRV / yvsteCRV / yvCurve-IB
 
-### C.R.E.A.M. Finance
+### eRSDL
 
 For the other tokens, we use our own price oracle to get the price.
 

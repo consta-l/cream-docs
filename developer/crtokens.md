@@ -1,6 +1,4 @@
 ---
-description: Shout out to our community member Ivan for the hard work and contribution
----
 
 # eRSDL
 
@@ -10,11 +8,11 @@ Each asset supported by the unFederalReserve Protocol is integrated through a eR
 
 eRSDL are the primary means of interacting with the unFederealReserve Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers eRSDL, she will do so using the crToken contract.
 
-?*? There are currently two types of crTokens: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
+?*? There are currently two types of eRSDL: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
 
 ## Mint
 
-The mint function transfers an asset into the protocol, which begins accumulating interest based on the current Supply Rate for the asset. The user receives a quantity of crTokens equal to the underlying tokens supplied, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate).
+The mint function transfers an asset into the protocol, which begins accumulating interest based on the current Supply Rate for the asset. The user receives a quantity of eRSDL equal to the underlying tokens supplied, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate).
 
 ### *?* CErc20
 
