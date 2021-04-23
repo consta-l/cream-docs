@@ -24,9 +24,7 @@ We focused on flaws that would allow an attacker to:
 * Subvert the imposed caps on borrowing or supplying.
 * Bypass access controls to modify contract state.
 
-Coinspect [Publications GitHub](https://github.com/trailofbits/publications/blob/master/reviews/CREAMSummary.pdf)
-
-{% file src=".gitbook/assets/creamsummary.pdf" caption="Audit Report - Trail of Bits" %}
+Coinspect [Coinspect-UnFederalReserve.Smart.Contract.Audit.v210413.pdf](https://github.com/UnFederalReserve/general/files/6365847/Coinspect-UnFederalReserve.Smart.Contract.Audit.v210413.pdf)
 
 
 
