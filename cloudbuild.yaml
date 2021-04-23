@@ -1,0 +1,42 @@
+substitutions:
+  _SERVICE_NAME: docs
+steps:
+
+# install dependencies
+- name: 'gcr.io/cloud-builders/git'
+  id: install-submodules
+  waitFor: ['-']
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      sed -i \
+        -e 's#git@github.com:unfederalreserve/\(.*\)\.git#https://source.developers.google.com/p/$PROJECT_ID/r/github-unfederalreserve-\1#g' \
+        -e 's#git@github.com:\(.*\)\.git#https://github.com/\1#g' \
+      .gitmodules
+      git submodule update --init
+
+# build docker image
+- name: 'gcr.io/cloud-builders/docker'
+  id: build-docker
+  waitFor:
+    - install-submodules
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      docker build -t gcr.io/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA .
+      docker push gcr.io/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA
+
+# deploy
+- name: 'gcr.io/cloud-builders/gke-deploy'
+  id: deploy
+  waitFor:
+    - build-docker
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      gcloud container clusters get-credentials --region us-central1 dev
+
+      kubectl get deployment/$_SERVICE_NAME -o yaml | gke-deploy run -f - -i gcr.io/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA -a $_SERVICE_NAME
