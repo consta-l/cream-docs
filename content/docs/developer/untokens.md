@@ -19,7 +19,7 @@ Each asset supported by the unFederalReserve Protocol is integrated through a eR
 
 eRSDL are the primary means of interacting with the unFederealReserve Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers eRSDL, she will do so using the crToken contract.
 
-?*? There are currently two types of eRSDL: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
+There are currently two types of eRSDL: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
 
 ## Mint
 
@@ -250,7 +250,7 @@ await crToken.methods.repayBorrowBehalf(0xBorrower, 10000).send({from: 0xPayer})
 
 A user who has negative account liquidity is subject to liquidation by other users of the protocol to return his/her account liquidity back to positive \(i.e. above the collateral requirement\). When a liquidation occurs, a liquidator may repay some or all of an outstanding borrow on behalf of a borrower and in return receive a discounted amount of collateral held by the borrower; this discount is defined as the liquidation incentive.
 
-A liquidator may close up to a ?*? certain fixed percentage \(i.e. close factor\) of any individual outstanding borrow of the underwater account. When collateral is seized, the liquidator is transferred eRSDL which they may redeem the same as if they had supplied the asset themselves. Users must approve each eRSDL contract before calling liquidate \(i.e. on the borrowed asset which they are repaying\), as they are transferring funds into the contract.
+A liquidator may close up to a certain fixed percentage \(i.e. close factor\) of any individual outstanding borrow of the underwater account. When collateral is seized, the liquidator is transferred eRSDL which they may redeem the same as if they had supplied the asset themselves. Users must approve each eRSDL contract before calling liquidate \(i.e. on the borrowed asset which they are repaying\), as they are transferring funds into the contract.
 
 ### **CErc20**
 
@@ -500,7 +500,7 @@ At any point in time one may query the contract to get the current supply rate p
 function supplyRatePerBlock() returns (unit)
 ```
 
-`RETURN:` The current supply rate as an unsigned integer, scaled by ?*? 1e18.
+`RETURN:` The current supply rate as an unsigned integer, scaled by 1e18.
 
 ### Solidity
 

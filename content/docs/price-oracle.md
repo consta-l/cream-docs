@@ -24,5 +24,6 @@ ETH / LEND / LINK / COMP / YFI / BUSD / USDT / USDC
 
 ### unFederalReserve
 
-?*? The other tokens, including BSC supported token
+?*? asked Ryan
+https://residualtokeninc.slack.com/archives/C01J4AN0JR3/p1619208858113300
 

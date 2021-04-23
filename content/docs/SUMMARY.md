@@ -15,11 +15,7 @@
 
 ## ?*? Iron Bank
 
-* [Iron Bank Contract Address](iron-bank/iron-bank.md)
-* [Collateral & Reserve Factor](iron-bank/collateral-and-reserve-factor.md)
-* [Interest Rate Model](iron-bank/interest-rate-model.md)
-* [Price Oracle](iron-bank/price-oracle.md)
-* [FAQ](iron-bank/faq.md)
+We (Me, Sergey, Const) need to read about Iron bank and explain that to Howard, Ryan
 
 ## Developer
 
@@ -32,6 +28,8 @@
 * [Subgraph \(GraphQL\)](developer/subgraph-graphql.md)
 
 ## ?*? eRSDL <a id="eth2"></a>
+
+We need to support eth2!!! post launch but very important
 
 * [What is Ethereum 2.0](eth2/what-is-ethereum-2.0.md)
 * [Why Stake for CRETH2](eth2/why-stake-in-ethereum-2.0.md)
@@ -49,5 +47,5 @@
 
 ---
 
-?*? *  [Give Feedback](https://forum.cream.finance/c/site-feedback)
+[Give Feedback](https://discord.com/channels/752897466030096447/763984362722033724)
 
