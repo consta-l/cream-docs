@@ -14,16 +14,10 @@ weight: 10
 
 # Price Oracle
 
-{% hint style="info" %}
+< hint [info] >
 Currently we have Chainlink as third-party price oracle
-{% endhint %}
+< /hint >
 
 ### Chainlink
 
 ETH / LEND / LINK / COMP / YFI / BUSD / USDT / USDC
-
-### unFederalReserve
-
-?*? asked Ryan
-https://residualtokeninc.slack.com/archives/C01J4AN0JR3/p1619208858113300
-
