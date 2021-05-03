@@ -28,15 +28,3 @@ weight: 10
 | unSUSHI | [0x338286C0BC081891A4Bda39C7667ae150bf5D206](https://etherscan.io/address/0x338286C0BC081891A4Bda39C7667ae150bf5D206) |
 | unLINK | [0x697256CAA3cCaFD62BB6d3Aa1C7C5671786A5fD9](https://etherscan.io/address/0x697256CAA3cCaFD62BB6d3Aa1C7C5671786A5fD9) |
 
-
-### Protocol Address
-
-| Contract | Address |
-| :--- | :--- |
-| Comptroller | [0x3d5BC3c8d13dcB8bF317092d84783c2697AE9258](https://etherscan.io/address/0x3d5BC3c8d13dcB8bF317092d84783c2697AE9258) |
-| Lens | [0xd400e22dcA840CC7E342DF1d9945684bBd587659](https://etherscan.io/address/0xd400e22dcA840CC7E342DF1d9945684bBd587659) |
-
-{% hint style="info" %}
-Searching for tokens on BSC? We put them [here](https://docs.cream.finance/v/binance-smart-chain/lending/lending-contract-address)
-{% endhint %}
-

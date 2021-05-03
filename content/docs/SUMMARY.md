@@ -15,7 +15,7 @@
 
 * [eRSDL](developer/untokens.md)
 * [Key Events](developer/key-events.md)
-* [Error Codes](developer/error-codes/untokens.md)
+* [Error Codes](developer/error-codes/error-codes.md)
 
 ---
 
