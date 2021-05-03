@@ -13,10 +13,7 @@ weight: 10
 ---
 
 # Price Oracle
-
-< hint [info] >
-Currently we have Chainlink as third-party price oracle
-< /hint >
+<hint info> Currently we have Chainlink as third-party price oracle </hint>
 
 ### Chainlink
 

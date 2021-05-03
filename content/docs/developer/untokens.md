@@ -15,17 +15,17 @@ weight: 10
 
 ## Introduction
 
-Each asset supported by the unFederalReserve Protocol is integrated through a eRSDL contract, which is an [EIP-20](https://eips.ethereum.org/EIPS/eip-20) compliant representation of balances supplied to the protocol. By minting eRSDL, users \(1\) earn interest through the eRSDL's exchange rate, which increases in value relative to the underlying asset, and \(2\) gain the ability to use eRSDL as collateral.
+Each asset supported by the unFederalReserve Protocol is integrated through an eRSDL contract, which is an [EIP-20](https://eips.ethereum.org/EIPS/eip-20) compliant representation of balances supplied to the protocol. By minting eRSDL, users \(1\) earn interest through the eRSDL's exchange rate, which increases in value relative to the underlying asset, and \(2\) gain the ability to use eRSDL as collateral.
 
-eRSDL are the primary means of interacting with the unFederealReserve Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers eRSDL, she will do so using the crToken contract.
+eRSDL are the primary means of interacting with the unFederealReserve Protocol; when a user mints, redeems, borrows, repays a borrow, liquidates a borrow, or transfers eRSDL, she will do so using the unToken contract.
 
 There are currently two types of eRSDL: CErc20 and CEther. Though both types expose the EIP-20 interface, CErc20 wraps an underlying ERC-20 asset, while CEther simply wraps Ether itself. As such, the core functions which involve transferring an asset into the protocol have slightly different interfaces depending on the type, each of which is shown below.
 
 ## Mint
 
-The mint function transfers an asset into the protocol, which begins accumulating interest based on the current Supply Rate for the asset. The user receives a quantity of eRSDL equal to the underlying tokens supplied, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate).
+The mint function transfers an asset into the protocol, which begins accumulating interest based on the current Supply Rate for the asset. The user receives a quantity of eRSDL equal to the underlying tokens supplied, divided by the current [Exchange Rate](#exchange-rate).
 
-### *?* CErc20
+### CErc20
 
 ```jsx
 function mint(uint mintAmount) returns (uint)
@@ -37,9 +37,9 @@ function mint(uint mintAmount) returns (uint)
 
 `RETURN:` 0 on success, otherwise an Error code
 
-Before supplying an asset, users must first approve the crToken to access their token balance.
+Before supplying an asset, users must first approve the unToken to access their token balance.
 
-### *?* CEther
+### CEther
 
 ```jsx
 function mint() payable
@@ -55,23 +55,23 @@ function mint() payable
 
 ```jsx
 Erc20 underlying = Erc20(0xToken...);     // get a handle for the underlying asset contract
-CErc20 crToken = CErc20(0x3FDA...);        // get a handle for the corresponding cToken contract
+CErc20 unToken = CErc20(0x3FDA...);        // get a handle for the corresponding cToken contract
 underlying.approve(address(cToken), 100); // approve the transfer
-assert(crToken.mint(100) == 0);            // mint the cTokens and assert there is no error
+assert(unToken.mint(100) == 0);            // mint the cTokens and assert there is no error
 ```
 
-### *?* Web3 1.0
+### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDB...);
-await crToken.methods.mint().send({from: myAccount, value: 50});
+const unToken = CEther.at(0x3FDB...);
+await unToken.methods.mint().send({from: myAccount, value: 50});
 ```
 
 ## **Redeem**
 
-The redeem function converts a specified quantity of eRSDL into the underlying asset, and returns them to the user. The amount of underlying tokens received is equal to the quantity of eRSDL redeemed, multiplied by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
+The redeem function converts a specified quantity of eRSDL into the underlying asset, and returns them to the user. The amount of underlying tokens received is equal to the quantity of eRSDL redeemed, multiplied by the current [Exchange Rate](#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
 
-### *?* CErc20 / CEther
+### CErc20 / CEther
 
 ```jsx
 function redeem(uint redeemTokens) returns (uint)
@@ -86,22 +86,22 @@ function redeem(uint redeemTokens) returns (uint)
 ### **Solidity**
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-require(crToken.redeem(7) == 0, "something went wrong");
+CEther unToken = CEther(0x3FDB...);
+require(unToken.redeem(7) == 0, "something went wrong");
 ```
 
 ### **Web3 1.0**
 
 ```jsx
-const crToken = CErc20.at(0x3FDA...);
-crToken.methods.redeem(1).send({from: ...});
+const unToken = CErc20.at(0x3FDA...);
+unToken.methods.redeem(1).send({from: ...});
 ```
 
 ## **Redeem Underlying**
 
-The redeem underlying function converts eRSDL into a specified quantity of the underlying asset, and returns them to the user. The amount of crTokens redeemed is equal to the quantity of underlying tokens received, divided by the current [Exchange Rate](https://docs.cream.finance/api/crtokens#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
+The redeem underlying function converts eRSDL into a specified quantity of the underlying asset, and returns them to the user. The amount of unTokens redeemed is equal to the quantity of underlying tokens received, divided by the current [Exchange Rate](#exchange-rate). The amount redeemed must be less than the user's Account Liquidity and the market's available liquidity.
 
-### *?* CErc20 / CEther
+### CErc20 / CEther
 
 ```jsx
 function redeemUnderlying(uint redeemAmount) returns (uint)
@@ -110,15 +110,15 @@ function redeemUnderlying(uint redeemAmount) returns (uint)
 ### Solidity
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-require(crToken.redeemUnderlying(50) == 0, "something went wrong");
+CEther unToken = CEther(0x3FDB...);
+require(unToken.redeemUnderlying(50) == 0, "something went wrong");
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CErc20.at(0x3FDA...);
-crToken.methods.redeemUnderlying(10).send({from: ...});
+const unToken = CErc20.at(0x3FDA...);
+unToken.methods.redeemUnderlying(10).send({from: ...});
 ```
 
 ## **Borrow**
@@ -135,22 +135,22 @@ function borrow(uint borrowAmount) returns (uint)
 
 `msg.sender:` The account to which redeemed funds shall be transferred.
 
-`borrowAmount:` The number of crTokens to be borrowed
+`borrowAmount:` The number of unTokens to be borrowed
 
 `RETURN:` 0 on success, otherwise an Error code
 
 ### Solidity
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-require(crToken.redeemUnderlying(50) == 0, "got collateral?");
+CEther unToken = CEther(0x3FDB...);
+require(unToken.redeemUnderlying(50) == 0, "got collateral?");
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDA...);
-await crToken.methods.borrow(50).send({from: 0xMyAccount});
+const unToken = CEther.at(0x3FDA...);
+await unToken.methods.borrow(50).send({from: 0xMyAccount});
 ```
 
 ## **Repay Borrow**
@@ -169,7 +169,7 @@ function repayBorrow(uint borrowAmount) returns (uint)
 
 `RETURN:` 0 on success, otherwise an Error code
 
-Before repaying an asset, users must first approve the crToken to access their token balance.
+Before repaying an asset, users must first approve the unToken to access their token balance.
 
 ### CEther
 
@@ -186,16 +186,16 @@ function repayBorrow() payable
 ### Solidity
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-require(crToken.repayBorrow.value(100() == 0, "transfer approved?");const crToken = CErc20.at(0x3FDA...);
-crToken.methods.repayBorrow(10000).send({from: ...});
+CEther unToken = CEther(0x3FDB...);
+require(unToken.repayBorrow.value(100() == 0, "transfer approved?");const unToken = CErc20.at(0x3FDA...);
+unToken.methods.repayBorrow(10000).send({from: ...});
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDA...);
-await crToken.methods.borrow(50).send({from: 0xMyAccount});
+const unToken = CEther.at(0x3FDA...);
+await unToken.methods.borrow(50).send({from: 0xMyAccount});
 ```
 
 ## **Repay Borrow Behalf**
@@ -216,7 +216,7 @@ function repayBorrowBehalf(address borrower, uint repayAmount) returns (uint)
 
 `RETURN:` 0 on success, otherwise an Error code
 
-Before repaying an asset, users must first approve the crToken to access their token balance.
+Before repaying an asset, users must first approve the unToken to access their token balance.
 
 ### **CEther**
 
@@ -235,15 +235,15 @@ function repayBorrowBehalf(address borrower) payable
 ### **Solidity**
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-require(crToken.repayBorrowBehalf.value(100)(0xBorrower) == 0, "transfer approved?");
+CEther unToken = CEther(0x3FDB...);
+require(unToken.repayBorrowBehalf.value(100)(0xBorrower) == 0, "transfer approved?");
 ```
 
 ### **Web3 1.0**
 
 ```jsx
-const crToken = CErc20.at(0x3FDA...);
-await crToken.methods.repayBorrowBehalf(0xBorrower, 10000).send({from: 0xPayer});
+const unToken = CErc20.at(0x3FDA...);
+await unToken.methods.repayBorrowBehalf(0xBorrower, 10000).send({from: 0xPayer});
 ```
 
 ## **Liquidate Borrow**
@@ -264,16 +264,16 @@ function liquidateBorrow(address borrower, uint amount, address collateral) retu
 
 `repayAmount:` The amount of the borrowed asset to be repaid and converted into collateral, specified in units of the underlying borrowed asset.
 
-`cTokenCollateral:` The address of the crToken currently held as collateral by a borrower, that the liquidator shall seize.
+`cTokenCollateral:` The address of the unToken currently held as collateral by a borrower, that the liquidator shall seize.
 
 `RETURN:` 0 on success, otherwise an Error code
 
-Before supplying an asset, users must first approve the crToken to access their token balance.
+Before supplying an asset, users must first approve the unToken to access their token balance.
 
 ### CEther
 
 ```jsx
-function liquidateBorrow(address borrower, address crTokenCollateral) payable
+function liquidateBorrow(address borrower, address unTokenCollateral) payable
 ```
 
 `msg.valuepayable:` The amount of ether to be repaid and converted into collateral, in wei.
@@ -282,29 +282,29 @@ function liquidateBorrow(address borrower, address crTokenCollateral) payable
 
 `borrower:` The account with negative [account liquidity](https://compound.finance/docs/comptroller#account-liquidity) that shall be liquidated.
 
-`crTokenCollateral:` The address of the crToken currently held as collateral by a borrower, that the liquidator shall seize.
+`unTokenCollateral:` The address of the unToken currently held as collateral by a borrower, that the liquidator shall seize.
 
 `RETURN:` No return, reverts on error.
 
 ### Solidity
 
 ```jsx
-CEther crToken = CEther(0x3FDB...);
-CErc20 crTokenCollateral = CErc20(0x3FDA...);
-require(crToken.liquidateBorrow.value(100)(0xBorrower, crTokenCollateral) == 0, "borrower underwater??");
+CEther unToken = CEther(0x3FDB...);
+CErc20 unTokenCollateral = CErc20(0x3FDA...);
+require(unToken.liquidateBorrow.value(100)(0xBorrower, unTokenCollateral) == 0, "borrower underwater??");
 ```
 
 ### **Web3 1.0**
 
 ```jsx
-const crToken = CErc20.at(0x3FDA...);
-const crTokenCollateral = CEther.at(0x3FDB...);
-await crToken.methods.liquidateBorrow(0xBorrower, 33, crTokenCollateral).send({from: 0xLiquidator});
+const unToken = CErc20.at(0x3FDA...);
+const unTokenCollateral = CEther.at(0x3FDB...);
+await unToken.methods.liquidateBorrow(0xBorrower, 33, unTokenCollateral).send({from: 0xLiquidator});
 ```
 
 ## **Exchange Rate**
 
-Each eRSDL is convertible into an ever increasing quantity of the underlying asset, as interest accrues in the market. The exchange rate between a crToken and the underlying asset is equal to:
+Each eRSDL is convertible into an ever increasing quantity of the underlying asset, as interest accrues in the market. The exchange rate between a unToken and the underlying asset is equal to:
 
 ```jsx
 exchangeRate = (getCash() + totalBorrows() - totalReserves()) / totalSupply()
@@ -319,15 +319,15 @@ function exchangeRateCurrent() returns (uint)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CrToken(0x3FDA...);
-uint exchangeRateMantissa = crToken.exchangeRateCurrent();
+CErc20 unToken = unToken(0x3FDA...);
+uint exchangeRateMantissa = unToken.exchangeRateCurrent();
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDB...);
-const exchangeRate = (await crToken.methods.exchangeRateCurrent().call()) / 1e18;
+const unToken = CEther.at(0x3FDB...);
+const exchangeRate = (await unToken.methods.exchangeRateCurrent().call()) / 1e18;
 ```
 
 Tip: note the use of call vs. send to invoke the function from off-chain without incurring gas costs.
@@ -347,15 +347,15 @@ function getCash() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CrToken(0x3FDA...);
-uint cash = crToken.getCash();
+CErc20 unToken = unToken(0x3FDA...);
+uint cash = unToken.getCash();
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDB...);
-const cash = (await crToken.methods.getCash().call());
+const unToken = CEther.at(0x3FDB...);
+const cash = (await unToken.methods.getCash().call());
 ```
 
 ## Total Borrow
@@ -373,15 +373,15 @@ function totalBorrowCurrent() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint borrows = crToken.totalBorrowsCurrent();
+CErc20 unToken = CToken(0x3FDA...);
+uint borrows = unToken.totalBorrowsCurrent();
 ```
 
 ### Web3 1.0
 
 ```jsx
-crToken = CEther.at(0x3FDB...);
-const borrows = (await crToken.methods.totalBorrowsCurrent().call());
+unToken = CEther.at(0x3FDB...);
+const borrows = (await unToken.methods.totalBorrowsCurrent().call());
 ```
 
 ## Borrow Balance
@@ -399,15 +399,15 @@ function borrowBalanceCurrent(addressacount) returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint borrows = crToken.borrowBalanceCurrent(msg.caller);
+CErc20 unToken = CToken(0x3FDA...);
+uint borrows = unToken.borrowBalanceCurrent(msg.caller);
 ```
 
 ### Web3 1.0
 
 ```jsx
-crToken = CEther.at(0x3FDB...);
-const borrows = await crToken.methods.totalBorrowsCurrent(account).call();
+unToken = CEther.at(0x3FDB...);
+const borrows = await unToken.methods.totalBorrowsCurrent(account).call();
 ```
 
 ## Borrow Rate
@@ -425,15 +425,15 @@ function borrowRatePerBlock() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint borrowRateMantissa = crToken.borrowRatePerBlock();
+CErc20 unToken = CToken(0x3FDA...);
+uint borrowRateMantissa = unToken.borrowRatePerBlock();
 ```
 
 ### Web3 1.0
 
 ```jsx
-crToken = CEther.at(0x3FDB...);
-const borrowRate = (await crToken.methods.borrowRatePerBlock().call());
+unToken = CEther.at(0x3FDB...);
+const borrowRate = (await unToken.methods.borrowRatePerBlock().call());
 ```
 
 ## Total Supply
@@ -451,20 +451,20 @@ function totalSupply() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint tokens = crToken.totalSupply();
+CErc20 unToken = CToken(0x3FDA...);
+uint tokens = unToken.totalSupply();
 ```
 
 ### Web3 1.0
 
 ```jsx
-crToken = CEther.at(0x3FDB...);
-const tokens = (await crToken.methods.totalSupply().call());
+unToken = CEther.at(0x3FDB...);
+const tokens = (await unToken.methods.totalSupply().call());
 ```
 
 ## Underlying Balance
 
-The user's underlying balance, representing their assets in the protocol, is equal to the user's crToken balance multiplied by the Exchange Rate.
+The user's underlying balance, representing their assets in the protocol, is equal to the user's unToken balance multiplied by the Exchange Rate.
 
 ### CErc20/CEther
 
@@ -479,15 +479,15 @@ function balanceOfUnderlying(address account) returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint tokens = crToken.balanceOfUnderlying(msg.caller);
+CErc20 unToken = CToken(0x3FDA...);
+uint tokens = unToken.balanceOfUnderlying(msg.caller);
 ```
 
 ### Web3 1.0
 
 ```jsx
-crToken = CEther.at(0x3FDB...);
-const tokens = await crToken.methods.balanceOfUnderlying(account).call();
+unToken = CEther.at(0x3FDB...);
+const tokens = await unToken.methods.balanceOfUnderlying(account).call();
 ```
 
 ## Supply Rate
@@ -505,8 +505,8 @@ function supplyRatePerBlock() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint supplyRateMantissa = crToken.supplyRatePerBlock();
+CErc20 unToken = CToken(0x3FDA...);
+uint supplyRateMantissa = unToken.supplyRatePerBlock();
 ```
 
 ### Web3 1.0
@@ -518,7 +518,7 @@ const supplyRate = (await cToken.methods.supplyRatePerBlock().call()) / 1e18;
 
 ## Total Reserves
 
-Reserves are an accounting entry in each crToken contract that represents a portion of historical interest set aside as cash which can be withdrawn or transferred through the protocol's governance. A small portion of borrower interest accrues into the protocol, determined by the reserve factor.
+Reserves are an accounting entry in each unToken contract that represents a portion of historical interest set aside as cash which can be withdrawn or transferred through the protocol's governance. A small portion of borrower interest accrues into the protocol, determined by the reserve factor.
 
 ### CErc20/CEther
 
@@ -531,15 +531,15 @@ function totalReserves() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
-uint reserves = crToken.totalReserves();
+CErc20 unToken = CToken(0x3FDA...);
+uint reserves = unToken.totalReserves();
 ```
 
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDB...);
-const reserves = (await crToken.methods.totalReserves().call());
+const unToken = CEther.at(0x3FDB...);
+const reserves = (await unToken.methods.totalReserves().call());
 ```
 
 ## Reserve Factor
@@ -557,7 +557,7 @@ function reserveFactorMantissa() returns (unit)
 ### Solidity
 
 ```jsx
-CErc20 crToken = CToken(0x3FDA...);
+CErc20 unToken = CToken(0x3FDA...);
 uint reserveFactorMantissa = crconst cToken = CEther.at(0x3FDB...);
 const reserveFactor = (await cToken.methods.reserveFactorMantissa().call()) / 1e18;Token.reserveFactorMantissa();
 ```
@@ -565,7 +565,7 @@ const reserveFactor = (await cToken.methods.reserveFactorMantissa().call()) / 1e
 ### Web3 1.0
 
 ```jsx
-const crToken = CEther.at(0x3FDB...);
-const reserves = (await crToken.methods.totalReserves().call());
+const unToken = CEther.at(0x3FDB...);
+const reserves = (await unToken.methods.totalReserves().call());
 ```
 

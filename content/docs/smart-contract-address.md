@@ -30,5 +30,3 @@ weight: 10
 
 {% page-ref page="lending/lending-contract-address.md" %}
 
-{% page-ref page="eth2/ethereum-2.0-contract-address.md" %}
-
